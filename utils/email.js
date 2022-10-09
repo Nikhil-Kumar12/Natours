@@ -19,7 +19,7 @@ module.exports = class Email {
           user: process.env.SENDGRID_USERNAME,
           pass: process.env.SENDGRID_PASSWORD,
         },
-      }); 
+      });
     }
 
     return nodemailer.createTransport({
