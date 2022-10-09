@@ -8,7 +8,7 @@ process.on('uncaughtException', (err) => {
 });
 
 dotenv.config({ path: './config.env' });
-const app = require('./app');
+const app = require('./App');
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
@@ -38,4 +38,3 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
   });
 });
-
