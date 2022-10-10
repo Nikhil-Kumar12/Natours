@@ -41,10 +41,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     ],
   });
 
-  session = await stripe.checkout.sessions.retrieve('cs_test_123', {
-    expand: ['line_items'],
-  });
-
   // 3) Create session as response
   res.status(200).json({
     status: 'success',
@@ -63,7 +59,10 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 // });
 
 const createBookingCheckout = async (session) => {
-  console.log('hi 🤣', line_items);
+  session = await stripe.checkout.sessions.retrieve(session.id, {
+    expand: ['line_items'],
+  });
+  console.log('hi 🤣', session);
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.line_items[0].price_data.unit_amount / 100;
